@@ -1,6 +1,7 @@
 package com.peecho.orderbackend.request;
 
 import com.peecho.orderbackend.model.Order;
+import lombok.NonNull;
 
-public record OrderRequest(Order.ProductType productType, String description, Integer customer) {
+public record OrderRequest(@NonNull Order.ProductType productType, @NonNull String description, @NonNull Integer customer) {
 }

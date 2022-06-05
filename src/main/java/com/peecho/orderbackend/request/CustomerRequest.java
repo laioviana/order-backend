@@ -1,4 +1,6 @@
 package com.peecho.orderbackend.request;
 
-public record CustomerRequest(String firstName, String lastName, String email, String country, String zipCode, String city, String addressLine) {
+import lombok.NonNull;
+
+public record CustomerRequest(@NonNull String firstName, @NonNull String lastName, @NonNull String email, @NonNull String country, @NonNull String zipCode, @NonNull String city, @NonNull String addressLine) {
 }
