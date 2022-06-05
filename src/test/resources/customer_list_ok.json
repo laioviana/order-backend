@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "firstName": "Jonh",
+      "lastName": "Doe",
+      "email": "johndoe@peecho.com",
+      "country": "The Netherlands",
+      "zipCode": "1010AB",
+      "city": "Amsterdam",
+      "addressLine": "John Doe Straat"
+    },
+    {
+      "id": 2,
+      "firstName": "Mary",
+      "lastName": "Doe",
+      "email": "marydoe@peecho.com",
+      "country": "The Netherlands",
+      "zipCode": "3030AB",
+      "city": "Rotterdam",
+      "addressLine": "Mary Doe Straat"
+    }
+]

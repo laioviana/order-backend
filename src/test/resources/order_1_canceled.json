@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "productType": 1,
+  "description": "Integration test 1",
+  "status": "CANCELED",
+  "customer": {
+    "id": 1,
+    "firstName": "Jonh",
+    "lastName": "Doe",
+    "email": "johndoe@peecho.com",
+    "country": "The Netherlands",
+    "zipCode": "1010AB",
+    "city": "Amsterdam",
+    "addressLine": "John Doe Straat"
+  }
+}

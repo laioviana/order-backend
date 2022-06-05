@@ -2,6 +2,7 @@ package com.peecho.orderbackend.util;
 
 import com.peecho.orderbackend.model.Customer;
 import com.peecho.orderbackend.model.Order;
+import com.peecho.orderbackend.request.CustomerRequest;
 import com.peecho.orderbackend.request.OrderRequest;
 
 import java.time.Instant;
@@ -39,5 +40,9 @@ public class CreationUtils {
 
     public static OrderRequest createOrderRequest(Integer productType, String description, Integer customer) {
         return new OrderRequest(productType, description, customer);
+    }
+
+    public static CustomerRequest createCustomerRequest(String firstName, String lastName, String email, String country, String zipCode, String city, String addressLine) {
+        return new CustomerRequest(firstName, lastName, email, country, zipCode, city, addressLine);
     }
 }

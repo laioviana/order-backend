@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import static org.mockito.Mockito.mock;
 
 @TestConfiguration
-public class OrderTestConfig {
+public class TestConfig {
 
     @Bean
     OrderService orderService() {
