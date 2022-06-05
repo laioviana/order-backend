@@ -63,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(orderId)
                 .filter(order -> order.getStatus() == Order.OrderStatus.PAID)
                 .map(order -> {
+                    log.info("Publishing order {} to queue.",orderId);
                     ObjectMapper mapper = new ObjectMapper();
                     publishEvent(mapper.valueToTree(order), orderId);
                     return order;
@@ -79,6 +80,7 @@ public class OrderServiceImpl implements OrderService {
     private Optional<Order> updateOrderStatus(Long orderId, Order.OrderStatus status) {
         return orderRepository.findById(orderId)
                 .map(order -> {
+                    log.info("Updating order {} with new status {}.",orderId, status);
                     order.setStatus(status);
                     return orderRepository.save(order);
                 });

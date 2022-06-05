@@ -32,11 +32,13 @@ public class OrderController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Order createOrder(@Valid @RequestBody OrderRequest orderRequest) {
+        log.info("Creating order with product {} for userId {}.", orderRequest.productType(), orderRequest.customer());
         return orderService.createOrder(orderRequest);
     }
 
     @PutMapping("/pay/{orderId}")
     public ResponseEntity<Order> payOrder(@PathVariable Long orderId) {
+        log.info("Paying order {}.", orderId);
         return orderService.payOrder(orderId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().build());
@@ -44,6 +46,7 @@ public class OrderController {
 
     @PutMapping("/cancel/{orderId}")
     public ResponseEntity<Order> cancelOrder(@PathVariable Long orderId) {
+        log.info("Canceling order {}.", orderId);
         return orderService.cancelOrder(orderId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().build());
@@ -51,6 +54,7 @@ public class OrderController {
 
     @PutMapping("/sendToQueue/{orderId}")
     public ResponseEntity<Order> sendOrderToQueue(@PathVariable Long orderId) {
+        log.info("Sending order {} to queue.", orderId);
         return orderService.sendOrderToQueue(orderId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().build());
