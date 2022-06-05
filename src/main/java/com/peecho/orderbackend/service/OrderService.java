@@ -20,5 +20,4 @@ public interface OrderService {
 
     Optional<Order> cancelOrder(Long orderId);
 
-    Optional<Order> updateOrderStatus(Long orderId, Order.OrderStatus orderStatus);
 }
