@@ -1,6 +1,6 @@
 {
   "id": 1,
-  "productType": 1,
+  "productType": "ARTBOOK",
   "description": "Integration test 1",
   "status": "CANCELED",
   "customer": {

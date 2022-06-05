@@ -42,8 +42,8 @@ public class OrderControllerTest {
         final Customer customer = CreationUtils.createCustomer(1, "Jonh", "Doe", "johndoe@peecho.com", "Amsterdam", "1010AB", "John Doe Straat", "The Netherlands");
         when(orderService.listAllOrders(0,10))
                 .thenReturn(List.of(
-                        CreationUtils.createOrder(1L, 1, "Integration test 1", customer, Order.OrderStatus.OPEN),
-                        CreationUtils.createOrder(2L, 2, "Integration test 2", customer, Order.OrderStatus.OPEN)
+                        CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customer, Order.OrderStatus.OPEN),
+                        CreationUtils.createOrder(2L, Order.ProductType.POSTER, "Integration test 2", customer, Order.OrderStatus.OPEN)
                 ));
 
         mockMvc.perform(get("/order?page=0&size=10"))
@@ -54,13 +54,13 @@ public class OrderControllerTest {
     @Test
     void orderHappyPath() throws Exception {
         final Customer customerToBeReturned = CreationUtils.createCustomer(1, "Jonh", "Doe", "johndoe@peecho.com", "Amsterdam", "1010AB", "John Doe Straat", "The Netherlands");
-        Order orderToBeReturned = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.OPEN);
+        Order orderToBeReturned = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.OPEN);
 
         when(orderService.createOrder(any()))
                 .thenReturn(orderToBeReturned);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String orderRequestjson = objectMapper.writeValueAsString(CreationUtils.createOrderRequest(1, "Integration test 1", 1));
+        String orderRequestjson = objectMapper.writeValueAsString(CreationUtils.createOrderRequest(Order.ProductType.ARTBOOK, "Integration test 1", 1));
         mockMvc.perform(post("/order")
                         .content(orderRequestjson)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -88,13 +88,13 @@ public class OrderControllerTest {
     @Test
     void orderCancelAfterPayPath() throws Exception {
         final Customer customerToBeReturned = CreationUtils.createCustomer(1, "Jonh", "Doe", "johndoe@peecho.com", "Amsterdam", "1010AB", "John Doe Straat", "The Netherlands");
-        Order orderToBeReturned = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.OPEN);
+        Order orderToBeReturned = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.OPEN);
 
         when(orderService.createOrder(any()))
                 .thenReturn(orderToBeReturned);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String orderRequestjson = objectMapper.writeValueAsString(CreationUtils.createOrderRequest(1, "Integration test 1", 1));
+        String orderRequestjson = objectMapper.writeValueAsString(CreationUtils.createOrderRequest(Order.ProductType.ARTBOOK, "Integration test 1", 1));
         mockMvc.perform(post("/order")
                         .content(orderRequestjson)
                         .contentType(MediaType.APPLICATION_JSON)

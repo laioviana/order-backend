@@ -1,4 +1,6 @@
 package com.peecho.orderbackend.request;
 
-public record OrderRequest(Integer productType, String description, Integer customer) {
+import com.peecho.orderbackend.model.Order;
+
+public record OrderRequest(Order.ProductType productType, String description, Integer customer) {
 }

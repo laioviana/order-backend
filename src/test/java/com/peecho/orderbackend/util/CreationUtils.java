@@ -27,7 +27,7 @@ public class CreationUtils {
         return customer;
     }
 
-    public static Order createOrder(Long id, Integer productType, String description, Customer customer, Order.OrderStatus orderStatus) {
+    public static Order createOrder(Long id, Order.ProductType productType, String description, Customer customer, Order.OrderStatus orderStatus) {
         Order order = new Order();
         order.setId(id);
         order.setStatus(orderStatus);
@@ -38,7 +38,7 @@ public class CreationUtils {
         return order;
     }
 
-    public static OrderRequest createOrderRequest(Integer productType, String description, Integer customer) {
+    public static OrderRequest createOrderRequest(Order.ProductType productType, String description, Integer customer) {
         return new OrderRequest(productType, description, customer);
     }
 

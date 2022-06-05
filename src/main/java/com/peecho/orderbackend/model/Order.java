@@ -16,7 +16,7 @@ public class Order {
     private Long id;
 
     @Column(name = "product_type", nullable = false)
-    private Integer productType;
+    private ProductType productType;
 
     @Lob
     @Column(name = "description", nullable = false)
@@ -44,5 +44,12 @@ public class Order {
         CANCELED,
         ERROR,
         COMPLETE
+    }
+
+    public enum ProductType {
+        ARTBOOK,
+        POSTER,
+        CALENDER,
+        VISIT_CARDS
     }
 }

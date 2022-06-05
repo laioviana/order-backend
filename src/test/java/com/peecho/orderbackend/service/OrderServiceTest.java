@@ -36,8 +36,8 @@ public class OrderServiceTest {
 
     @Test
     void createOrder() {
-        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.OPEN);
-        OrderRequest orderRequest = CreationUtils.createOrderRequest(1, "Integration test 1", 1);
+        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.OPEN);
+        OrderRequest orderRequest = CreationUtils.createOrderRequest(Order.ProductType.ARTBOOK, "Integration test 1", 1);
         when(orderRepository.save(any())).thenReturn(order);
         final Order result = orderService.createOrder(orderRequest);
         assertEquals(order.getDescription(), result.getDescription());
@@ -47,9 +47,9 @@ public class OrderServiceTest {
 
     @Test
     void payOrder() {
-        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.OPEN);
+        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.OPEN);
         when(orderRepository.findById(any())).thenReturn(Optional.of(order));
-        com.peecho.orderbackend.model.Order orderPaid = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.PAID);
+        com.peecho.orderbackend.model.Order orderPaid = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.PAID);
         when(orderRepository.save(any())).thenReturn(orderPaid);
         final Optional<Order> result = orderService.payOrder(1L);
         assertEquals(Order.OrderStatus.PAID, result.get().getStatus());
@@ -57,9 +57,9 @@ public class OrderServiceTest {
 
     @Test
     void cancelOrder() {
-        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.PAID);
+        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.PAID);
         when(orderRepository.findById(any())).thenReturn(Optional.of(order));
-        com.peecho.orderbackend.model.Order orderCanceled = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.CANCELED);
+        com.peecho.orderbackend.model.Order orderCanceled = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.CANCELED);
         when(orderRepository.save(any())).thenReturn(orderCanceled);
         final Optional<Order> result = orderService.cancelOrder(1L);
         assertEquals(Order.OrderStatus.CANCELED, result.get().getStatus());
@@ -67,7 +67,7 @@ public class OrderServiceTest {
 
     @Test
     void payOrderError() {
-        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.CANCELED);
+        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.CANCELED);
         when(orderRepository.findById(any())).thenReturn(Optional.of(order));
         final Optional<Order> result = orderService.payOrder(1L);
         assertTrue(result.isEmpty());
@@ -75,9 +75,9 @@ public class OrderServiceTest {
 
     @Test
     void sendOrderToQueueError() {
-        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.PAID);
+        com.peecho.orderbackend.model.Order order = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.PAID);
         when(orderRepository.findById(any())).thenReturn(Optional.of(order));
-        com.peecho.orderbackend.model.Order orderQueue = CreationUtils.createOrder(1L, 1, "Integration test 1", customerToBeReturned, Order.OrderStatus.IN_PRINT_QUEUE);
+        com.peecho.orderbackend.model.Order orderQueue = CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customerToBeReturned, Order.OrderStatus.IN_PRINT_QUEUE);
         when(orderRepository.save(any())).thenReturn(orderQueue);
         final Optional<Order> result = orderService.sendOrderToQueue(1L);
         assertEquals(Order.OrderStatus.ERROR, result.get().getStatus());
