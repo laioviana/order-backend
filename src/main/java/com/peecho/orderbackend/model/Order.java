@@ -1,5 +1,6 @@
 package com.peecho.orderbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "product_type", nullable = false)
     private Integer productType;
@@ -22,13 +23,26 @@ public class Order {
     private String description;
 
     @Column(name = "status", nullable = false)
-    private Integer status;
+    private OrderStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer", insertable = false, updatable = false)
     private Customer customer;
 
+    @JsonIgnore
+    @Column(name = "customer")
+    private Integer customerId;
+
+    @JsonIgnore
     @Column(name = "created_at")
     private Instant createdAt;
 
+    public enum OrderStatus {
+        OPEN,
+        PAID,
+        IN_PRINT_QUEUE,
+        CANCELED,
+        ERROR,
+        COMPLETE
+    }
 }

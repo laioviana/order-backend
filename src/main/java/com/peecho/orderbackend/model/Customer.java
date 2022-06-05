@@ -1,5 +1,6 @@
 package com.peecho.orderbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -37,6 +38,7 @@ public class Customer {
     @Column(name = "address_line", nullable = false)
     private String addressLine;
 
+    @JsonIgnore
     @Column(name = "created_at")
     private Instant createdAt;
 
