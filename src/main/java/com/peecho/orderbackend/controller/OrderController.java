@@ -5,7 +5,6 @@ import com.peecho.orderbackend.request.OrderRequest;
 import com.peecho.orderbackend.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,26 +36,26 @@ public class OrderController {
     }
 
     @PutMapping("/pay/{orderId}")
-    public ResponseEntity<Order> payOrder(@PathVariable Long orderId) {
+    public ResponseEntity payOrder(@PathVariable Long orderId) {
         log.info("Paying order {}.", orderId);
         return orderService.payOrder(orderId)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+                .orElse(new ResponseEntity("Order can't be paid with this status", HttpStatus.BAD_REQUEST));
     }
 
     @PutMapping("/cancel/{orderId}")
-    public ResponseEntity<Order> cancelOrder(@PathVariable Long orderId) {
+    public ResponseEntity cancelOrder(@PathVariable Long orderId) {
         log.info("Canceling order {}.", orderId);
         return orderService.cancelOrder(orderId)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+                .orElse(new ResponseEntity("Order can't be canceled with this status", HttpStatus.BAD_REQUEST));
     }
 
     @PutMapping("/sendToQueue/{orderId}")
-    public ResponseEntity<Order> sendOrderToQueue(@PathVariable Long orderId) {
+    public ResponseEntity sendOrderToQueue(@PathVariable Long orderId) {
         log.info("Sending order {} to queue.", orderId);
         return orderService.sendOrderToQueue(orderId)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+                .orElse(new ResponseEntity("Order can't be sent to queue with this status", HttpStatus.BAD_REQUEST));
     }
 }
