@@ -1,7 +1,9 @@
 package com.peecho.orderbackend.service.impl;
 
+import com.peecho.orderbackend.mapper.CustomerMapper;
 import com.peecho.orderbackend.model.Customer;
 import com.peecho.orderbackend.repository.CustomerRepository;
+import com.peecho.orderbackend.request.CustomerRequest;
 import com.peecho.orderbackend.service.CustomerService;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer createCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer createCustomer(CustomerRequest customerRequest) {
+        Customer newCustomer = CustomerMapper.fromDto(customerRequest);
+        return customerRepository.save(newCustomer);
     }
 
     @Override

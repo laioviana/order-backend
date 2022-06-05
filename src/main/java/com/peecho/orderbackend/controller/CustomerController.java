@@ -1,6 +1,7 @@
 package com.peecho.orderbackend.controller;
 
 import com.peecho.orderbackend.model.Customer;
+import com.peecho.orderbackend.request.CustomerRequest;
 import com.peecho.orderbackend.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,9 +31,9 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Customer createCustomer(@Valid @RequestBody Customer customer) {
-        log.info("Creating customer for email {}.", customer.getEmail());
-        return customerService.createCustomer(customer);
+    Customer createCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
+        log.info("Creating customer for email {}.", customerRequest.email());
+        return customerService.createCustomer(customerRequest);
     }
 
 }
