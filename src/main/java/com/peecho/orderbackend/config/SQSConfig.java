@@ -11,11 +11,13 @@ import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.converter.MessageConverter;
 
 @Configuration
 public class SQSConfig {
 
-    @Value("${cloud.aws.end-point.uri}")
+    @Value("${cloud.aws.queue.uri}")
     private String uri;
 
     @Value("${cloud.aws.credentials.access-key}")
@@ -45,4 +47,5 @@ public class SQSConfig {
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
+
 }
