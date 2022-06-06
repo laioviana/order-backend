@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    Customer createCustomer(CustomerRequest customerRequest);
+    Optional<Customer> createCustomer(CustomerRequest customerRequest);
 
     Optional<List<Customer>> listAllCustomers();
 

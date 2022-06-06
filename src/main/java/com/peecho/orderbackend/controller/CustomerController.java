@@ -32,9 +32,11 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Customer createCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
+    ResponseEntity createCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
         log.info("Creating customer for email {}.", customerRequest.email());
-        return customerService.createCustomer(customerRequest);
+        return customerService.createCustomer(customerRequest)
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity("E-mail "+customerRequest.email()+ " already in use!", HttpStatus.BAD_REQUEST));
     }
 
 }

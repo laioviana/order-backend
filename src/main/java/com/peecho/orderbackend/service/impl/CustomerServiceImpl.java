@@ -20,9 +20,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer createCustomer(CustomerRequest customerRequest) {
-        Customer newCustomer = CustomerMapper.fromDto(customerRequest);
-        return customerRepository.save(newCustomer);
+    public Optional<Customer> createCustomer(CustomerRequest customerRequest) {
+        return customerRepository.findCustomerByEmailIgnoreCase(customerRequest.email()).isEmpty() ?
+                Optional.of(customerRepository.save(CustomerMapper.fromDto(customerRequest)))
+                : Optional.empty();
     }
 
     @Override

@@ -61,7 +61,7 @@ public class CustomerControllerTest {
     void createCustomer() throws Exception {
         final Customer customerToBeReturned = CreationUtils.createCustomer(1, "Jonh", "Doe", "johndoe@peecho.com", "Amsterdam", "1010AB", "John Doe Straat", "The Netherlands");
         when(customerService.createCustomer(any()))
-                .thenReturn(customerToBeReturned);
+                .thenReturn(Optional.of(customerToBeReturned));
 
         ObjectMapper objectMapper = new ObjectMapper();
         String orderRequestjson = objectMapper.writeValueAsString(CreationUtils.createCustomerRequest("Jonh", "Doe", "johndoe@peecho.com", "The Netherlands", "1010AB", "Amsterdam", "John Doe Straat"));
