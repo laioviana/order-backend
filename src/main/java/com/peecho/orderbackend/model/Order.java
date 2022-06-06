@@ -49,7 +49,7 @@ public class Order {
     public enum ProductType {
         ARTBOOK,
         POSTER,
-        CALENDER,
+        CALENDAR,
         VISIT_CARDS
     }
 }

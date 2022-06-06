@@ -16,6 +16,7 @@ import javax.validation.Valid;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 @RequestMapping(path = "/customer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerController {
 
