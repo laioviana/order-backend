@@ -31,7 +31,6 @@ public class CustomerController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity createCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
         log.info("Creating customer for email {}.", customerRequest.email());
         return customerService.createCustomer(customerRequest)

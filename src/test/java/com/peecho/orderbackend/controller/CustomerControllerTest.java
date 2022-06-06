@@ -69,7 +69,7 @@ public class CustomerControllerTest {
                         .content(orderRequestjson)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(content().json(FileReadUtils.readFile("customer_1.json")));
     }
 

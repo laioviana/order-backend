@@ -49,7 +49,7 @@ public class OrderControllerTest {
         when(orderService.listAllOrders(0,10))
                 .thenReturn(page);
 
-        mockMvc.perform(get("/order?page=0&size=10"))
+        mockMvc.perform(get("/order?page=1&size=10"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(FileReadUtils.readFile("order_list_ok.json")));
     }
