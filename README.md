@@ -15,7 +15,7 @@ To run the project execute the `mvn spring-boot:run` command.
 To run the tests execute the  `mvn test` command.
 
 
-You can also access the swagger ui interface in [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+You can also access the swagger ui interface in [http://localhost:8080/swagger-ui/](http://localhost:8080/swagger-ui.html)
 
 # API Documentation
 
