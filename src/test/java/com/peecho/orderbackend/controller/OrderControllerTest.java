@@ -12,6 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -40,11 +42,12 @@ public class OrderControllerTest {
     @Test
     void getAllOrdersOkTest() throws Exception {
         final Customer customer = CreationUtils.createCustomer(1, "Jonh", "Doe", "johndoe@peecho.com", "Amsterdam", "1010AB", "John Doe Straat", "The Netherlands");
+        Page<Order> page = new PageImpl<>(List.of(
+                CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customer, Order.OrderStatus.OPEN),
+                CreationUtils.createOrder(2L, Order.ProductType.POSTER, "Integration test 2", customer, Order.OrderStatus.OPEN)
+        ));
         when(orderService.listAllOrders(0,10))
-                .thenReturn(List.of(
-                        CreationUtils.createOrder(1L, Order.ProductType.ARTBOOK, "Integration test 1", customer, Order.OrderStatus.OPEN),
-                        CreationUtils.createOrder(2L, Order.ProductType.POSTER, "Integration test 2", customer, Order.OrderStatus.OPEN)
-                ));
+                .thenReturn(page);
 
         mockMvc.perform(get("/order?page=0&size=10"))
                 .andExpect(status().isOk())
