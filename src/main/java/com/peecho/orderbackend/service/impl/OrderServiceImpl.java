@@ -12,6 +12,7 @@ import com.peecho.orderbackend.request.OrderRequest;
 import com.peecho.orderbackend.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> listAllOrders(Integer page, Integer size) {
-        return orderRepository.findAll(PageRequest.of(page,size)).stream().toList();
+    public Page<Order> listAllOrders(Integer page, Integer size) {
+        return orderRepository.findAllByOrderByIdDesc(PageRequest.of(page,size));
     }
 
     @Override
